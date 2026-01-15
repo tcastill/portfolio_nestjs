@@ -1,0 +1,11 @@
+{
+  "wind-walker": {
+    "x": 65,
+    "y": 31,
+    "title": "Autographed at AnimeFest",
+    "subtitle": ["Dante Basco", "Zuko"],
+    "panelOffsetX": 80,
+    "lineLength": 80,
+    "lineAngle": 12
+  }
+}

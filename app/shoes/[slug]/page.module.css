@@ -1,0 +1,13 @@
+.shoeFeather {
+  /* Soft feathered transparency for main shoe image */
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 65%,
+    transparent 90%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 61%,
+    transparent 77%
+  );
+}

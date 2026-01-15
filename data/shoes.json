@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "budokai",
+    "name": "Budokai",
+    "brand": "Bullairs",
+    "year": 2025,
+    "cover": "/shoes/budokais/dbz12.png",
+    "images": [
+      "/shoes/budokais/dbz12.png",
+      "/shoes/budokais/wish.png"
+    ]
+  },
+  {
+    "slug": "wind-walker",
+    "name": "Wind Walker",
+    "brand": "Bullairs",
+    "year": 2024,
+    "cover": "/shoes/wind_walkers/windmain.png",
+    "images": ["/shoes/wind_walkers/windmain.png"],
+    "background": "/backgrounds/windback.png"
+  }
+]
