@@ -34,5 +34,19 @@
     "brand": "Bullairs",
     "year": 2025,
     "images": ["/shoes/redfive/redfive.png"]
+  },
+    {
+    "slug": "shoeboy-classic",
+    "name": "Shoeboy Classic",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/shoeboys/shoeboyclassic.png"]
+  },
+      {
+    "slug": "besties",
+    "name": "Besties",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/besties/besties.png"]
   }
 ]
