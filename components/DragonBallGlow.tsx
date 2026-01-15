@@ -44,8 +44,8 @@ export default function DragonBallGlow({ active }: Props) {
               )
             `,
 
-            WebkitMaskImage: "url('/masks/budokai-ball1.svg')",
-            maskImage: "url('/masks/budokai-ball1.svg')",
+            WebkitMaskImage: "url('/masks/bulldokai-ball1.svg')",
+            maskImage: "url('/masks/bulldokai-ball1.svg')",
 
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",
@@ -85,8 +85,8 @@ export default function DragonBallGlow({ active }: Props) {
               )
             `,
 
-            WebkitMaskImage: "url('/masks/budokai-1.svg')",
-            maskImage: "url('/masks/budokai-1.svg')",
+            WebkitMaskImage: "url('/masks/bulldokai-1.svg')",
+            maskImage: "url('/masks/bulldokai-1.svg')",
 
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",

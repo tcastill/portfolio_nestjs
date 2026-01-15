@@ -43,14 +43,14 @@ export default function ShoePage() {
   if (!shoe) notFound()
 
   const isWindWalker = slug === "wind-walker"
-  const isBudokai = slug === "budokai"
+  const isBulldokai = slug === "bulldokai"
 
   /* =========================
      STATES
      ========================= */
   const [avatarState, setAvatarState] = useState(false)
 
-  // Budokai only
+  // Bulldokai only
   const [wishPhase, setWishPhase] = useState<WishPhase>("idle")
   const [swipeCount, setSwipeCount] = useState(0)
   const [blackout, setBlackout] = useState(false)
@@ -71,7 +71,7 @@ export default function ShoePage() {
   const stormY = useTransform(y, v => v * 0.45)
 
   function handleMouseMove(e: MouseEvent) {
-    if (isBudokai) return
+    if (isBulldokai) return
 
     const { innerWidth, innerHeight } = window
     rawX.set((e.clientX / innerWidth - 0.5) * (avatarState ? 70 : 40))
@@ -84,7 +84,7 @@ export default function ShoePage() {
   }
 
   /* =========================
-     BUDOKAI SEQUENCE
+     Bulldokai SEQUENCE
      ========================= */
   useEffect(() => {
     if (wishPhase === "quake") {
@@ -123,7 +123,7 @@ export default function ShoePage() {
   return (
     <motion.main
       className={`relative w-screen h-screen overflow-hidden cursor-none ${
-        isBudokai ? "bg-black" : ""
+        isBulldokai ? "bg-black" : ""
       }`}
       onMouseMove={handleMouseMove}
       onMouseLeave={resetMotion}
@@ -159,7 +159,7 @@ export default function ShoePage() {
         </button>
       )}
 
-      {isBudokai && (
+      {isBulldokai && (
         <button
           onClick={() =>
             wishPhase === "idle"
@@ -175,7 +175,7 @@ export default function ShoePage() {
       {/* =========================
           MAIN CONTENT
          ========================= */}
-      {isBudokai ? (
+      {isBulldokai ? (
         <div className="absolute inset-0 z-10 overflow-hidden">
           <Image
             src={shoe.images[0]}
@@ -282,7 +282,7 @@ export default function ShoePage() {
          ========================= */}
       <div
         className={`absolute top-10 left-10 z-40 ${
-          isBudokai ? "text-white" : "text-black"
+          isBulldokai ? "text-white" : "text-black"
         }`}
       >
         <h1 className="text-2xl font-semibold">{shoe.name}</h1>
@@ -298,7 +298,7 @@ export default function ShoePage() {
         <Link
           href="/shoes"
           className={`text-xs transition ${
-            isBudokai
+            isBulldokai
               ? "text-white/70 hover:text-white"
               : "text-black/70 hover:text-black"
           }`}
@@ -309,7 +309,7 @@ export default function ShoePage() {
         <Link
           href="/"
           className={`text-xs transition ${
-            isBudokai
+            isBulldokai
               ? "text-white/70 hover:text-white"
               : "text-black/70 hover:text-black"
           }`}

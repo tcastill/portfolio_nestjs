@@ -46,8 +46,8 @@ export default function GroundCrackGlow({ active }: Props) {
             `,
 
             /* 🧠 SVG CRACK MASK (WHITE = visible) */
-            WebkitMaskImage: "url('/masks/budokai-crack.svg')",
-            maskImage: "url('/masks/budokai-crack.svg')",
+            WebkitMaskImage: "url('/masks/bulldokai-crack.svg')",
+            maskImage: "url('/masks/bulldokai-crack.svg')",
 
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",
