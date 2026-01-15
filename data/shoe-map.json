@@ -16,9 +16,17 @@
     "active": true
   },
   {
-    "slug": "ghost-traps",
+    "slug": "sewer-stompers",
     "x": 13,
-    "y": 5,
+    "y": 45,
+    "w": 10,
+    "h": 10,
+    "active": true
+  },
+    {
+    "slug": "redfive",
+    "x": 65,
+    "y": 70,
     "w": 10,
     "h": 10,
     "active": true

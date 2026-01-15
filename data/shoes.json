@@ -18,5 +18,21 @@
     "cover": "/shoes/wind_walkers/windmain.png",
     "images": ["/shoes/wind_walkers/windmain.png"],
     "background": "/backgrounds/windback.png"
+  },
+  {
+  "slug": "sewer-stompers",
+  "name": "Sewer Stompers",
+  "brand": "Street Labs",
+  "year": 2024,
+  "images": [
+    "/shoes/sewer_stompers/sewerstompers.png"
+  ]
+},
+  {
+    "slug": "redfive",
+    "name": "Red Five",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/redfive/redfive.png"]
   }
 ]
