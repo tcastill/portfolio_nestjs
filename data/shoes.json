@@ -42,11 +42,32 @@
     "year": 2025,
     "images": ["/shoes/shoeboys/shoeboyclassic.png"]
   },
-      {
+    {
     "slug": "besties",
     "name": "Besties",
     "brand": "Bullairs",
     "year": 2025,
     "images": ["/shoes/besties/besties.png"]
+  },
+  {
+    "slug": "hero",
+    "name": "Legend",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/hero/hero.png"]
+  },
+  {
+    "slug": "camp_killer",
+    "name": "8Bit Camp Killer",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/camp_killer/1.png"]
+  },
+  {
+    "slug": "shadow_hunter",
+    "name": "Shadow Hunter",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/shadow_hunter/1.png"]
   }
 ]
