@@ -69,5 +69,12 @@
     "brand": "Bullairs",
     "year": 2025,
     "images": ["/shoes/shadow_hunter/1.png"]
+  },
+  {
+    "slug": "labullbu_blue",
+    "name": "Labullbu Powder Blue",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": ["/shoes/labullbu/blue.png"]
   }
 ]

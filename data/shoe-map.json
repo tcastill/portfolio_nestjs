@@ -70,5 +70,13 @@
     "w": 10,
     "h": 10,
     "active": true
+  },
+    {
+    "slug": "labullbu_blue",
+    "x": 25,
+    "y": 59,
+    "w": 10,
+    "h": 10,
+    "active": true
   }
 ]
