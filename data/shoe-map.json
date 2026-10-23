@@ -1,82 +1,410 @@
 [
   {
     "slug": "bulldokai",
-    "x": 2,
-    "y": 70,
-    "w": 10,
-    "h": 10,
+    "x": 50.0,
+    "y": 34.5,
+    "w": 7.8,
+    "h": 9.0,
     "active": true
   },
   {
     "slug": "wind-walker",
-    "x": 2,
-    "y": 83,
-    "w": 10,
-    "h": 10,
+    "x": 2.0,
+    "y": 57.3,
+    "w": 7.0,
+    "h": 8.8,
     "active": true
   },
   {
     "slug": "sewer-stompers",
-    "x": 13,
-    "y": 45,
-    "w": 10,
-    "h": 10,
+    "x": 17.8,
+    "y": 2.6,
+    "w": 7.2,
+    "h": 8.8,
     "active": true
   },
   {
     "slug": "redfive",
-    "x": 65,
-    "y": 70,
-    "w": 10,
-    "h": 10,
+    "x": 41.9,
+    "y": 68.7,
+    "w": 7.4,
+    "h": 9.1,
     "active": true
   },
   {
     "slug": "shoeboy-classic",
-    "x": 39,
-    "y": 19,
-    "w": 10,
-    "h": 10,
+    "x": 9.9,
+    "y": 13.3,
+    "w": 7.2,
+    "h": 8.8,
     "active": true
   },
   {
     "slug": "besties",
-    "x": 17,
-    "y": 83,
-    "w": 10,
-    "h": 10,
+    "x": 14.5,
+    "y": 81.8,
+    "w": 10.9,
+    "h": 9.0,
     "active": true
   },
   {
     "slug": "hero",
-    "x": 77,
-    "y": 73,
-    "w": 10,
-    "h": 10,
+    "x": 55.9,
+    "y": 82.5,
+    "w": 12.7,
+    "h": 8.5,
     "active": true
   },
   {
     "slug": "camp_killer",
-    "x": 51,
-    "y": 59,
-    "w": 10,
-    "h": 10,
+    "x": 33.8,
+    "y": 34.5,
+    "w": 7.2,
+    "h": 8.8,
     "active": true
   },
   {
     "slug": "shadow_hunter",
-    "x": 87,
-    "y": 20,
-    "w": 10,
-    "h": 10,
+    "x": 58.5,
+    "y": 14.5,
+    "w": 7.5,
+    "h": 7.6,
     "active": true
   },
-    {
+  {
     "slug": "labullbu_blue",
-    "x": 25,
-    "y": 59,
-    "w": 10,
-    "h": 10,
+    "x": 17.8,
+    "y": 45.2,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "batman89",
+    "x": 1.8,
+    "y": 81.6,
+    "w": 11.1,
+    "h": 9.2,
+    "active": true
+  },
+  {
+    "slug": "dark_father",
+    "x": 41.9,
+    "y": 24.1,
+    "w": 7.4,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "astromech",
+    "x": 41.9,
+    "y": 57.3,
+    "w": 7.4,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "flanders",
+    "x": 75.0,
+    "y": 47.0,
+    "w": 8.1,
+    "h": 7.0,
+    "active": true
+  },
+  {
+    "slug": "gi_joes",
+    "x": 27.2,
+    "y": 81.6,
+    "w": 12.0,
+    "h": 9.2,
+    "active": true
+  },
+  {
+    "slug": "white_knight",
+    "x": 9.9,
+    "y": 2.6,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "scoundrel",
+    "x": 58.5,
+    "y": 24.1,
+    "w": 7.5,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "hazard",
+    "x": 2.0,
+    "y": 34.5,
+    "w": 7.0,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "bull_man",
+    "x": 17.8,
+    "y": 24.1,
+    "w": 7.2,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "masters_slipons",
+    "x": 80.9,
+    "y": 82.8,
+    "w": 7.9,
+    "h": 8.0,
+    "active": true
+  },
+  {
+    "slug": "skele_bull",
+    "x": 17.8,
+    "y": 34.5,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "burned_dreams",
+    "x": 33.8,
+    "y": 45.2,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "labullbu_purple",
+    "x": 17.8,
+    "y": 68.7,
+    "w": 7.2,
+    "h": 9.1,
+    "active": true
+  },
+  {
+    "slug": "labullbu_green",
+    "x": 17.8,
+    "y": 57.3,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "steamboats",
+    "x": 50.0,
+    "y": 2.6,
+    "w": 7.7,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "steamboats_red",
+    "x": 50.0,
+    "y": 13.3,
+    "w": 7.7,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "poison_apples",
+    "x": 67.3,
+    "y": 46.5,
+    "w": 7.5,
+    "h": 7.5,
+    "active": true
+  },
+  {
+    "slug": "power_loaders",
+    "x": 58.5,
+    "y": 68.7,
+    "w": 7.5,
+    "h": 9.1,
+    "active": true
+  },
+  {
+    "slug": "sandlot",
+    "x": 2.0,
+    "y": 45.2,
+    "w": 7.0,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "krusty",
+    "x": 33.8,
+    "y": 2.6,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "standout",
+    "x": 50.0,
+    "y": 24.1,
+    "w": 7.7,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "superman",
+    "x": 17.8,
+    "y": 13.3,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "thing",
+    "x": 91.5,
+    "y": 2.6,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "toxic_crusaders",
+    "x": 70.4,
+    "y": 81.7,
+    "w": 7.7,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "flight_suit_84_grey",
+    "x": 25.9,
+    "y": 24.1,
+    "w": 7.0,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "real_ghostbusters",
+    "x": 67.3,
+    "y": 4.5,
+    "w": 7.5,
+    "h": 7.0,
+    "active": true
+  },
+  {
+    "slug": "shoeboy-yellow",
+    "x": 9.9,
+    "y": 45.2,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "shoeboy-purple",
+    "x": 9.9,
+    "y": 24.1,
+    "w": 7.2,
+    "h": 8.5,
+    "active": true
+  },
+  {
+    "slug": "shoeboy-pink",
+    "x": 9.9,
+    "y": 57.3,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "shoeboy-green",
+    "x": 9.9,
+    "y": 34.5,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "shoeboy-blue",
+    "x": 9.9,
+    "y": 68.7,
+    "w": 7.2,
+    "h": 9.1,
+    "active": true
+  },
+  {
+    "slug": "pink_slipons",
+    "x": 83.5,
+    "y": 5.2,
+    "w": 7.7,
+    "h": 6.2,
+    "active": true
+  },
+  {
+    "slug": "hoverboards",
+    "x": 75.2,
+    "y": 25.8,
+    "w": 8.0,
+    "h": 6.6,
+    "active": true
+  },
+  {
+    "slug": "jurassic",
+    "x": 75.2,
+    "y": 71.0,
+    "w": 8.0,
+    "h": 6.8,
+    "active": true
+  },
+  {
+    "slug": "spiderverse",
+    "x": 91.5,
+    "y": 34.5,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "yellow_sf",
+    "x": 91.5,
+    "y": 79.2,
+    "w": 7.2,
+    "h": 11.6,
+    "active": true
+  },
+  {
+    "slug": "jurassic_high",
+    "x": 2.0,
+    "y": 2.6,
+    "w": 7.0,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "origin_story",
+    "x": 91.5,
+    "y": 45.2,
+    "w": 7.2,
+    "h": 8.8,
+    "active": true
+  },
+  {
+    "slug": "white_sf",
+    "x": 91.5,
+    "y": 66.4,
+    "w": 7.2,
+    "h": 11.4,
+    "active": true
+  },
+  {
+    "slug": "hoverboard_highs",
+    "x": 2.0,
+    "y": 24.1,
+    "w": 7.2,
+    "h": 8.7,
+    "active": true
+  },
+  {
+    "slug": "ecto1",
+    "x": 67.3,
+    "y": 15.3,
+    "w": 7.6,
+    "h": 7.0,
     "active": true
   }
 ]

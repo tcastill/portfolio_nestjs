@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { useParams, notFound } from "next/navigation"
 import {
   motion,
@@ -24,6 +23,15 @@ import DragonBallGlow from "@/components/DragonBallGlow"
 import GroundCrackGlow from "@/components/GroundCrackGlow"
 import WhiteLightning from "@/components/WhiteLightning"
 import EnergyMotes from "@/components/EnergyMotes"
+import SmokeField, { BACKGROUND_SMOKE } from "@/components/SmokeField"
+import BestiesFX, { BestiesBackground } from "@/components/BestiesFX"
+import BatmanSky from "@/components/BatmanSky"
+import HoverboardRide, { HoverboardStreet } from "@/components/HoverboardRide"
+import CampKillerFX, { CampKillerAtmosphere } from "@/components/CampKillerFX"
+import BurnedDreamsFX, { BurnedDreamsAtmosphere } from "@/components/BurnedDreamsFX"
+import HeroFX, { HeroAtmosphere } from "@/components/HeroFX"
+import AstromechFX, { AstromechBackdrop } from "@/components/AstromechFX"
+import JurassicFX, { JurassicStorm } from "@/components/JurassicFX"
 
 import styles from "./page.module.css"
 
@@ -33,7 +41,25 @@ type Shoe = {
   brand: string
   year: number
   images: string[]
+  swapOnClick?: boolean // clicking the photo steps through all the images, then loops back
 }
+
+// Fades a photo's edges into the background behind it; `inner` is where it reaches full opacity
+function edgeFade(inner: number) {
+  const stops = `transparent 0%, transparent 1.5%, rgba(0,0,0,0.35) ${inner * 0.32}%, rgba(0,0,0,0.75) ${inner * 0.64}%, black ${inner}%, black ${100 - inner}%, rgba(0,0,0,0.75) ${100 - inner * 0.64}%, rgba(0,0,0,0.35) ${100 - inner * 0.32}%, transparent 98.5%, transparent 100%`
+  const mask = `linear-gradient(to right, ${stops}), linear-gradient(to bottom, ${stops})`
+  return {
+    WebkitMaskImage: mask,
+    WebkitMaskComposite: "source-in",
+    maskImage: mask,
+    maskComposite: "intersect",
+    // trim the outermost pixels: browsers can leave a faint hairline at a masked, scaled image's edge
+    clipPath: "inset(2px)",
+  } as const
+}
+
+const BATMAN_FADE = edgeFade(22)
+const BESTIES_FADE = edgeFade(9)
 
 type WishPhase = "idle" | "quake" | "swipe" | "dragon"
 
@@ -52,6 +78,19 @@ export default function ShoePage() {
   const isWindWalker = slug === "wind-walker"
   const isBulldokai = slug === "bulldokai"
   const isLabullbu = slug === "labullbu_blue"
+  const isBatman = slug === "batman89"
+  const isBesties = slug === "besties"
+  const isHoverboard = slug === "hoverboard_highs"
+  const isCampKiller = slug === "camp_killer"
+  const isBurnedDreams = slug === "burned_dreams"
+  const isHero = slug === "hero"
+  const isAstromech = slug === "astromech"
+  const isJurassic = slug === "jurassic"
+  const [storm, setStorm] = useState(false)
+  const isNes = isCampKiller || isBurnedDreams || isHero // the 8-bit game pages
+  const [heroPowered, setHeroPowered] = useState(false)
+  const [photo, setPhoto] = useState(0)
+  const [riding, setRiding] = useState(false)
 
   /* =========================
      LABULLBU GAME STATE
@@ -217,6 +256,40 @@ export default function ShoePage() {
           }}
         />
       )}
+
+      {/* BATMAN BACKGROUND: the photo continued past its frame (blurred copy behind it) */}
+      {isBatman && (
+        <div className="fixed inset-0 -z-50 bg-[#0b0f14]">
+          <Image
+            src={shoe.images[0]}
+            alt=""
+            fill
+            priority
+            className="scale-110 object-cover blur-3xl brightness-90"
+          />
+        </div>
+      )}
+
+      {/* BATMAN BACKGROUND SMOKE: drifts behind the photo */}
+      {isBatman && <SmokeField layers={BACKGROUND_SMOKE} className="z-0" />}
+
+      {/* HOVERBOARD: the street rushing past fills the page while riding */}
+      {isHoverboard && <HoverboardStreet riding={riding} />}
+
+      {/* CAMP KILLER: dark cave, fog and a CRT screen */}
+      {isCampKiller && <CampKillerAtmosphere image={shoe.images[0]} />}
+
+      {/* BURNED DREAMS: warm dark room, embers and a CRT screen */}
+      {isBurnedDreams && <BurnedDreamsAtmosphere image={shoe.images[0]} />}
+
+      {/* LEGEND: dark forest, fairies and a CRT screen */}
+      {isHero && <HeroAtmosphere image={shoe.images[0]} powered={heroPowered} />}
+
+      {/* ASTROMECH: soft studio light behind the photo */}
+      {isAstromech && <AstromechBackdrop image={shoe.images[0]} />}
+
+      {/* JURASSIC: a stormy night, rain and lightning */}
+      {isJurassic && <JurassicStorm image={shoe.images[0]} heavy={storm} />}
 
       {/* WIND WALKER BACKGROUND */}
       {isWindWalker && (
@@ -420,14 +493,36 @@ export default function ShoePage() {
           )}
         </div>
       ) : (
-        <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center ${shoe.swapOnClick || isHoverboard ? "cursor-pointer" : ""}`}
+          onClick={
+            shoe.swapOnClick
+              ? () => setPhoto((i) => (i + 1) % shoe.images.length)
+              : isHoverboard
+                ? () => setRiding((r) => !r)
+                : undefined
+          }
+        >
           <ShoeStage
             image={shoe.images[0]}
+            extraImages={shoe.swapOnClick ? shoe.images.slice(1) : undefined}
+            active={photo}
             x={x}
             y={y}
             fullscreen={isLabullbu}   // ✅ only Labullbu is fullscreen
+            aspect={isBatman || isHoverboard ? "1264 / 848" : isBesties || isNes ? "1536 / 1024" : isAstromech ? "6000 / 3376" : isJurassic ? "1999 / 3000" : undefined}   // frame matches the photo so its edges can fade
+            scale={isBatman || isBesties ? 1.15 : undefined}
+            width={isNes ? "min(98vw, calc(98vh * 1.5))" : isAstromech ? "min(98vw, calc(94vh * 6000 / 3376))" : isJurassic ? "min(92vw, calc(92vh * 1999 / 3000))" : undefined}   // as big as the screen allows
             imageClassName={isWindWalker ? styles.shoeFeather : undefined}
+            imageStyle={isBatman ? BATMAN_FADE : isBesties || isNes || isAstromech || isJurassic ? BESTIES_FADE : isHoverboard && riding ? { opacity: 0 } : undefined}
           >
+            {isHoverboard && <HoverboardRide riding={riding} />}
+            {isCampKiller && <CampKillerFX />}
+            {isBurnedDreams && <BurnedDreamsFX image={shoe.images[0]} fade={BESTIES_FADE} />}
+            {isAstromech && <AstromechFX />}
+            {isJurassic && <JurassicFX image={shoe.images[0]} onStorm={setStorm} />}
+            {isHero && <HeroFX final="/shoes/hero/herofinal.png" fade={BESTIES_FADE} onPowered={setHeroPowered} />}
+
             {isWindWalker && (
               <>
                 <div
@@ -482,6 +577,30 @@ export default function ShoePage() {
         </div>
       )}
 
+      {/* SWAP HINT */}
+      {shoe.swapOnClick && (
+        <div className="pointer-events-none absolute bottom-8 left-1/2 z-40 -translate-x-1/2 rounded-full bg-black/75 px-4 py-1.5 text-xs uppercase tracking-widest text-white backdrop-blur">
+          Click the photo to switch views · {photo + 1} / {shoe.images.length}
+        </div>
+      )}
+
+      {/* HOVERBOARD HINT */}
+      {isHoverboard && (
+        <div className="pointer-events-none absolute bottom-8 left-1/2 z-40 -translate-x-1/2 rounded-full bg-black/75 px-4 py-1.5 text-xs uppercase tracking-widest text-white backdrop-blur">
+          {riding ? "Click to stop" : "Click to ride"}
+        </div>
+      )}
+
+      {/* BESTIES COMIC FX: comic backdrop, collision intro, claws + gunshots */}
+      {isBesties && <BestiesBackground />}
+      {isBesties && <BestiesFX />}
+
+      {/* BATMAN SKY: Bat-Signal, moon and Batwing */}
+      {isBatman && <BatmanSky />}
+
+      {/* BATMAN SMOKE */}
+      {isBatman && <SmokeField />}
+
       {/* WIND EFFECTS */}
       {isWindWalker && (
         <>
@@ -497,7 +616,7 @@ export default function ShoePage() {
         className={`absolute top-10 left-10 z-40 ${
           isBulldokai
             ? "text-white"
-            : isLabullbu
+            : isLabullbu || isBatman || isNes || isJurassic || (isHoverboard && riding)
             ? "text-white drop-shadow-md"
             : "text-black"
         }`}
@@ -506,37 +625,6 @@ export default function ShoePage() {
         <p className="text-sm opacity-70">
           {shoe.brand} · {shoe.year}
         </p>
-      </div>
-
-      {/* =========================
-          NAVIGATION
-      ========================= */}
-      <div className="absolute bottom-8 left-8 z-40 flex flex-col gap-2">
-        <Link
-          href="/shoes"
-          className={`text-xs transition ${
-            isBulldokai
-              ? "text-white/70 hover:text-white"
-              : isLabullbu
-              ? "text-white hover:text-white drop-shadow-sm"
-              : "text-black/70 hover:text-black"
-          }`}
-        >
-          ← Back to shoes
-        </Link>
-
-        <Link
-          href="/"
-          className={`text-xs transition ${
-            isBulldokai
-              ? "text-white/70 hover:text-white"
-              : isLabullbu
-              ? "text-white hover:text-sky-200 drop-shadow-sm"
-              : "text-black/70 hover:text-black"
-          }`}
-        >
-          ← Back to main page
-        </Link>
       </div>
 
       {/* GAME OVER */}

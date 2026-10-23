@@ -16,65 +16,467 @@
     "brand": "Bullairs",
     "year": 2024,
     "cover": "/shoes/wind_walkers/windmain.png",
-    "images": ["/shoes/wind_walkers/windmain.png"],
+    "images": [
+      "/shoes/wind_walkers/windmain.png"
+    ],
     "background": "/backgrounds/windback.png"
   },
   {
-  "slug": "sewer-stompers",
-  "name": "Sewer Stompers",
-  "brand": "Street Labs",
-  "year": 2024,
-  "images": [
-    "/shoes/sewer_stompers/sewerstompers.png"
-  ]
-},
+    "slug": "sewer-stompers",
+    "name": "Sewer Stompers",
+    "brand": "Street Labs",
+    "year": 2024,
+    "images": [
+      "/shoes/sewer_stompers/sewerstompers.png"
+    ]
+  },
   {
     "slug": "redfive",
     "name": "Red Five",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/redfive/redfive.png"]
+    "images": [
+      "/shoes/redfive/redfive.png"
+    ]
   },
-    {
+  {
     "slug": "shoeboy-classic",
     "name": "Shoeboy Classic",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/shoeboys/shoeboyclassic.png"]
+    "images": [
+      "/shoes/shoeboys/shoeboyclassic.png"
+    ]
   },
-    {
+  {
+    "slug": "shoeboy-yellow",
+    "name": "Shoeboy Color Yellow",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/shoeboys/shoeboy-yellow.jpg"
+    ]
+  },
+  {
+    "slug": "shoeboy-purple",
+    "name": "Shoeboy Color Purple",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/shoeboys/shoeboy-purple.jpg"
+    ]
+  },
+  {
+    "slug": "shoeboy-pink",
+    "name": "Shoeboy Color Pink",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/shoeboys/shoeboy-pink.jpg"
+    ]
+  },
+  {
+    "slug": "shoeboy-green",
+    "name": "Shoeboy Color Green",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/shoeboys/shoeboy-green.jpg"
+    ]
+  },
+  {
+    "slug": "shoeboy-blue",
+    "name": "Shoeboy Color Blue",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/shoeboys/shoeboy-blue.jpg"
+    ]
+  },
+  {
     "slug": "besties",
     "name": "Besties",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/besties/besties.png"]
+    "images": [
+      "/shoes/besties/besties.png"
+    ]
   },
   {
     "slug": "hero",
     "name": "Legend",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/hero/hero.png"]
+    "images": [
+      "/shoes/hero/hero.png"
+    ]
   },
   {
     "slug": "camp_killer",
     "name": "8Bit Camp Killer",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/camp_killer/1.png"]
+    "images": [
+      "/shoes/camp_killer/1.png"
+    ]
   },
   {
     "slug": "shadow_hunter",
     "name": "Shadow Hunter",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/shadow_hunter/1.png"]
+    "images": [
+      "/shoes/shadow_hunter/1.png"
+    ]
   },
   {
     "slug": "labullbu_blue",
     "name": "Labullbu Powder Blue",
     "brand": "Bullairs",
     "year": 2025,
-    "images": ["/shoes/labullbu/blue.png"]
+    "images": [
+      "/shoes/labullbu/blue-shelf.jpg"
+    ]
+  },
+  {
+    "slug": "batman89",
+    "name": "Batman '89",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/batman89/batman89.png"
+    ]
+  },
+  {
+    "slug": "dark_father",
+    "name": "Dark Father",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/dark_father/vader.png"
+    ]
+  },
+  {
+    "slug": "astromech",
+    "name": "Astromech",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/astromech/astromech.jpg"
+    ]
+  },
+  {
+    "slug": "flanders",
+    "name": "Flanders",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/flanders/flanders.png"
+    ]
+  },
+  {
+    "slug": "gi_joes",
+    "name": "Yo Joe!",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/gi_joes/yojoe.png",
+      "/shoes/gi_joes/figures.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "white_knight",
+    "name": "White Knight",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/white_knight/whiteknight.jpg"
+    ]
+  },
+  {
+    "slug": "scoundrel",
+    "name": "Scoundrel",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/scoundrel/han.png"
+    ]
+  },
+  {
+    "slug": "hazard",
+    "name": "Hazard",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/hazard/hazmat.png",
+      "/shoes/hazard/lifestyle1.jpg",
+      "/shoes/hazard/lifestyle2.jpg",
+      "/shoes/hazard/lifestyle3.jpg",
+      "/shoes/hazard/lifestyle4.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "bull_man",
+    "name": "Bull-Man",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/bull_man/bullman.jpg"
+    ]
+  },
+  {
+    "slug": "masters_slipons",
+    "name": "Masters Slip-Ons",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/masters_slipons/streetwear.jpg"
+    ]
+  },
+  {
+    "slug": "skele_bull",
+    "name": "Skele Bull",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/skele_bull/magazine.jpg"
+    ]
+  },
+  {
+    "slug": "burned_dreams",
+    "name": "Burned Dreams",
+    "brand": "Bullairs",
+    "year": 2025,
+    "images": [
+      "/shoes/burned_dreams/burned_dreams.jpg"
+    ]
+  },
+  {
+    "slug": "labullbu_purple",
+    "name": "Labullbu Purple",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/labullbu/purple.jpg"
+    ]
+  },
+  {
+    "slug": "labullbu_green",
+    "name": "Labullbu Green",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/labullbu/green.jpg"
+    ]
+  },
+  {
+    "slug": "steamboats",
+    "name": "Steamboats",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/steamboats/steamboats.jpg",
+      "/shoes/steamboats/balloons.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "steamboats_red",
+    "name": "Steamboats Red",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/steamboats/red.jpg"
+    ]
+  },
+  {
+    "slug": "poison_apples",
+    "name": "Poison Apples",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/poison_apples/poison_apples.jpg"
+    ]
+  },
+  {
+    "slug": "power_loaders",
+    "name": "Power Loaders",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/power_loaders/loader1.jpg",
+      "/shoes/power_loaders/loader2.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "sandlot",
+    "name": "Sandlot",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/sandlot/smalls.jpg"
+    ]
+  },
+  {
+    "slug": "krusty",
+    "name": "Krusty",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/krusty/krusty.jpg"
+    ]
+  },
+  {
+    "slug": "standout",
+    "name": "Stand Out",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/standout/standout.jpg"
+    ]
+  },
+  {
+    "slug": "superman",
+    "name": "Man of Steel",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/superman/superman.jpg"
+    ]
+  },
+  {
+    "slug": "thing",
+    "name": "Clobberin' Time",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/thing/trail.jpg",
+      "/shoes/thing/pair.jpg",
+      "/shoes/thing/details.jpg",
+      "/shoes/thing/studio.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "toxic_crusaders",
+    "name": "Toxic Crusaders",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/toxic_crusaders/toxies.jpg"
+    ]
+  },
+  {
+    "slug": "flight_suit_84_grey",
+    "name": "Flight Suit '84 Grey",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/flight_suite_84/grey.jpg"
+    ]
+  },
+  {
+    "slug": "real_ghostbusters",
+    "name": "Real Ghostbusters",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/real_ghostbusters/gbshoes.jpg"
+    ]
+  },
+  {
+    "slug": "ecto1",
+    "name": "Ecto-1",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/ecto1/ecto1.jpg"
+    ]
+  },
+  {
+    "slug": "pink_slipons",
+    "name": "Pink Slip-Ons",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/pink_slipons/pink_slipons.jpg"
+    ]
+  },
+  {
+    "slug": "hoverboards",
+    "name": "Hoverboards",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/hoverboards/hoverboards.jpg"
+    ]
+  },
+  {
+    "slug": "hoverboard_highs",
+    "name": "Hoverboard Highs",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/hoverboard_highs/hoverboard_highs.jpg"
+    ]
+  },
+  {
+    "slug": "jurassic",
+    "name": "Jurassic",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/jurassic/jurassic.jpg"
+    ]
+  },
+  {
+    "slug": "spiderverse",
+    "name": "Spider-Verse",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/spiderverse/spiderverse.jpg"
+    ]
+  },
+  {
+    "slug": "yellow_sf",
+    "name": "Yellow Strap Highs",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/yellow_sf/yellow_sf.jpg"
+    ]
+  },
+  {
+    "slug": "white_sf",
+    "name": "White Strap Highs",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/white_sf/white_sf_1.jpg",
+      "/shoes/white_sf/white_sf_2.jpg"
+    ],
+    "swapOnClick": true
+  },
+  {
+    "slug": "jurassic_high",
+    "name": "Jurassic High",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/jurassic_high/jurassic_high.jpg"
+    ]
+  },
+  {
+    "slug": "origin_story",
+    "name": "Origin Story",
+    "brand": "Bullairs",
+    "year": 2026,
+    "images": [
+      "/shoes/origin_story/origin_story.jpg"
+    ]
   }
 ]

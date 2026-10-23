@@ -24,3 +24,77 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Shoe wall: unlinked shoes fade back after the page loads */
+@keyframes wall-fade {
+  from { opacity: 0; }
+}
+
+.wall-fade {
+  animation: wall-fade 1.2s ease-out 0.3s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wall-fade { animation: none; }
+}
+
+/* ───────── Front page ───────── */
+:root {
+  --home-pink: #d09cb1;
+  --home-sage: #b4c29c;
+}
+
+html:has(.home-page) {
+  scroll-behavior: smooth;
+}
+
+.home-page {
+  font-family: var(--font-body), Arial, sans-serif;
+}
+
+.home-display {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+}
+
+@keyframes home-marquee-x {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes home-marquee-y {
+  to { transform: translateY(-50%); }
+}
+
+.home-marquee-x {
+  animation: home-marquee-x linear infinite;
+}
+
+.home-marquee-y {
+  animation: home-marquee-y linear infinite;
+}
+
+/* footprints appear one after another heading down, then fade */
+@keyframes home-step {
+  0%, 100% { opacity: 0; }
+  12%, 45% { opacity: 1; }
+  70% { opacity: 0; }
+}
+
+.home-step {
+  opacity: 0;
+  animation: home-step 2.4s ease-in-out infinite;
+}
+
+@keyframes home-caret {
+  50% { opacity: 0; }
+}
+
+.home-caret {
+  animation: home-caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-marquee-x,
+  .home-marquee-y,
+  .home-caret,
+  .home-step { animation: none; opacity: 0.8; }
+}
