@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import shoeMap from "@/data/shoe-map.json"
+import pendingMap from "@/data/shoe-pending.json"
 import shoes from "@/data/shoes.json"
 
 type ShoeHotspot = {
@@ -16,12 +17,115 @@ type ShoeHotspot = {
 
 const map = shoeMap as ShoeHotspot[]
 
+// shoes on the wall without a page yet: clickable and in colour, but they open the "picture pending" page
+const pending = pendingMap as ShoeHotspot[]
+
 const names: Record<string, string> = Object.fromEntries(
   (shoes as { slug: string; name: string }[]).map((s) => [s.slug, s.name])
 )
 
-// shoewall-newface.png is 1360x768
-const IMAGE_RATIO = 1360 / 768
+// shoewall-v2.jpg is 3135x1255
+const IMAGE_RATIO = 3135 / 1255
+
+// where the soles of each row of shoes meet their shelf, as % of the wall's height
+const SHELVES = [13.0, 25.0, 36.6, 48.9, 60.9, 73.0, 84.6, 96.8]
+
+// satin black, drawn over the photo so the shoes stand on real-looking shelves
+const BLACK =
+  "linear-gradient(to bottom, #2a2a2d 0%, #151517 18%, #0b0b0c 60%, #050505 100%), repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0 0.4cqw, transparent 0.4cqw 1.1cqw)"
+
+// the middle of each shoe along its shelf, as % of the wall's width: a spotlight hangs above each one.
+// Every row follows the same grid except the bottom one, which holds pairs.
+const GRID = [4.6, 12.3, 19.6, 26.7, 34.2, 42.1, 49.9, 58.0, 65.9, 73.6, 81.5, 89.4, 96.3]
+const BOTTOM_ROW = [6.2, 16.2, 26.5, 36.8, 48.0, 57.8, 67.0, 74.6, 82.0, 89.4, 96.3]
+
+// whether a clickable shoe stands under the spotlight at x on the shelf at y
+const CLICKABLE = [...map, ...pending]
+const isLit = (x: number, y: number) =>
+  CLICKABLE.some((s) => Math.abs(s.x + s.w / 2 - x) < 4 && s.y < y && s.y + s.h > y - 6)
+
+function Shelves({ dimUnlinked }: { dimUnlinked: boolean }) {
+  return (
+    <div className="pointer-events-none absolute inset-0" aria-hidden>
+      {SHELVES.map((y, i) => {
+        // the spotlights for this row are set into the underside of the shelf above (or the top of the unit)
+        const light = i === 0 ? 0 : SHELVES[i - 1] + 1.9
+        const drop = y - light
+        return (
+          <div key={y}>
+            {(i === SHELVES.length - 1 ? BOTTOM_ROW : GRID).map((x) => (
+              // the spotlights over greyed-out shoes are turned down too
+              <div
+                key={x}
+                className="transition-opacity duration-500"
+                style={{ opacity: dimUnlinked && !isLit(x, y) ? 0.25 : 1 }}
+              >
+                {/* a soft cone of warm light down the back wall and over the shoe */}
+                <div
+                  className="absolute mix-blend-screen"
+                  style={{
+                    left: `${x - 4.5}%`,
+                    width: "9%",
+                    top: `${light}%`,
+                    height: `${drop}%`,
+                    background:
+                      "radial-gradient(ellipse 34% 95% at 50% 0%, rgba(255,214,170,0.34), rgba(255,200,150,0.12) 50%, transparent 80%), radial-gradient(ellipse 50% 120% at 50% 0%, rgba(255,200,150,0.1), transparent 70%)",
+                  }}
+                />
+                {/* the pool of light where it lands on the shelf */}
+                <div
+                  className="absolute mix-blend-screen"
+                  style={{
+                    left: `${x - 4}%`,
+                    width: "8%",
+                    top: `${y - 1.6}%`,
+                    height: "2.2%",
+                    background: "radial-gradient(ellipse 50% 50% at 50% 60%, rgba(255,214,170,0.22), transparent 70%)",
+                  }}
+                />
+                {/* the light itself, a small warm spot set into the shelf above */}
+                <div
+                  className="absolute h-[0.35%] w-[1.1%] -translate-x-1/2 rounded-b-full bg-[#ffe9cc] shadow-[0_0.1cqw_0.5cqw_0.1cqw_rgba(255,214,170,0.8)]"
+                  style={{ left: `${x}%`, top: `${light}%` }}
+                />
+              </div>
+            ))}
+            {/* the top of the shelf: lifts only the dark wall behind the shoes, so the shoes stay in front;
+                brighter toward the front, where the light lands */}
+            <div
+              className="absolute inset-x-0 mix-blend-lighten"
+              style={{ top: `${y - 2.4}%`, height: "2.5%", background: "linear-gradient(to bottom, #050505, #1c1c1e 65%, #3a3a3d)" }}
+            />
+            {/* the front edge, in front of the soles */}
+            <div
+              className="absolute inset-x-0 shadow-[0_0.5cqw_1cqw_rgba(0,0,0,0.9)]"
+              style={{ top: `${y}%`, height: "1.9%", background: BLACK }}
+            >
+              {/* the light catching its rounded top edge */}
+              <div className="absolute inset-x-0 top-0 h-[0.09cqw] bg-[linear-gradient(to_right,rgba(255,255,255,0.15),rgba(255,255,255,0.7)_50%,rgba(255,255,255,0.15))]" />
+            </div>
+          </div>
+        )
+      })}
+      {/* the sides of the unit */}
+      {["right-full", "left-full"].map((side) => (
+        <div
+          key={side}
+          className={`absolute ${side} -top-[2.2%] -bottom-[3%] w-[1.1%] shadow-[0_0_1cqw_rgba(0,0,0,0.9)]`}
+          style={{ background: "linear-gradient(to right, #050505, #222225 45%, #0a0a0b)" }}
+        />
+      ))}
+      {/* the top of the unit */}
+      <div className="absolute -inset-x-[1.3%] -top-[2.2%] h-[2.2%] shadow-[0_0.4cqw_0.8cqw_rgba(0,0,0,0.8)]" style={{ background: BLACK }}>
+        <div className="absolute inset-x-0 top-0 h-[0.09cqw] bg-white/25" />
+      </div>
+      {/* and its base */}
+      <div className="absolute -inset-x-[1.3%] top-full h-[3%] shadow-[0_0.6cqw_1.2cqw_rgba(0,0,0,0.9)]" style={{ background: BLACK }}>
+        <div className="absolute inset-x-0 top-0 h-[0.09cqw] bg-white/40" />
+      </div>
+    </div>
+  )
+}
 
 export default function ShoeMapPage() {
   // unlinked shoes start greyed out; the switch shows the whole wall in colour
@@ -65,15 +169,15 @@ export default function ShoeMapPage() {
         >
           {/* 🗺️ Shoe Map Background */}
           <Image
-            src="/landing/shoewall-newface.png"
+            src="/landing/shoewall-v2.jpg"
             alt="Shoe Map"
             fill
             priority
             className="object-contain"
           />
 
-          {/* grey out every shoe except the linked ones, leaving the shelves in colour.
-              shoewall-newface-shoes.png is a white-on-black cut-out of the shoes on the wall */}
+          {/* grey out the whole wall except the clickable shoes. shoewall-v2-shoes-c.png is a white-on-black
+              cut-out of the shoes, so inside each hotspot only the shoe itself keeps its colour */}
           <svg
             className="wall-fade pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-500"
             style={{ opacity: greyOut ? 1 : 0 }}
@@ -87,14 +191,19 @@ export default function ShoeMapPage() {
                 values="0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0 0 0 1 0"
               />
             </filter>
+            <mask id="shoe-shapes">
+              <image href="/masks/shoewall-v2-shoes-c.png" width="100" height="100" preserveAspectRatio="none" />
+            </mask>
             <mask id="unlinked-shoes">
-              <image href="/masks/shoewall-newface-shoes.png" width="100" height="100" preserveAspectRatio="none" />
-              {map.map((item) => (
-                <rect key={item.slug} x={item.x} y={item.y} width={item.w} height={item.h} rx="0.6" fill="black" />
-              ))}
+              <rect width="100" height="100" fill="white" />
+              <g mask="url(#shoe-shapes)">
+                {[...map, ...pending].map((item) => (
+                  <rect key={item.slug} x={item.x} y={item.y} width={item.w} height={item.h} fill="black" />
+                ))}
+              </g>
             </mask>
             <image
-              href="/landing/shoewall-newface.png"
+              href="/landing/shoewall-v2.jpg"
               width="100"
               height="100"
               preserveAspectRatio="none"
@@ -103,9 +212,14 @@ export default function ShoeMapPage() {
             />
           </svg>
 
+          <Shelves dimUnlinked={greyOut} />
+
           {/* 👟 Shoe Hotspots */}
-          {map.map((item) => {
-            const name = names[item.slug] ?? item.slug
+          {[
+            ...map.map((item) => ({ ...item, name: names[item.slug] ?? item.slug, href: `/shoes/${item.slug}` })),
+            ...pending.map((item) => ({ ...item, name: "Picture pending", href: "/shoes/pending" })),
+          ].map((item) => {
+            const name = item.name
             // keep the tag inside the wall for shoes at the left and right edges
             const tagAlign =
               item.x + item.w > 90 ? "right-0" : item.x < 8 ? "left-0" : "left-1/2 -translate-x-1/2"
@@ -113,7 +227,7 @@ export default function ShoeMapPage() {
             return (
               <Link
                 key={item.slug}
-                href={`/shoes/${item.slug}`}
+                href={item.href}
                 aria-label={`Open ${name}`}
                 className="group absolute cursor-pointer outline-none"
                 style={{

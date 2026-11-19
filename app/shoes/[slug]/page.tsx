@@ -32,6 +32,7 @@ import BurnedDreamsFX, { BurnedDreamsAtmosphere } from "@/components/BurnedDream
 import HeroFX, { HeroAtmosphere } from "@/components/HeroFX"
 import AstromechFX, { AstromechBackdrop } from "@/components/AstromechFX"
 import JurassicFX, { JurassicStorm } from "@/components/JurassicFX"
+import PoisonApplesFX, { PoisonBackdrop } from "@/components/PoisonApplesFX"
 
 import styles from "./page.module.css"
 
@@ -86,6 +87,7 @@ export default function ShoePage() {
   const isHero = slug === "hero"
   const isAstromech = slug === "astromech"
   const isJurassic = slug === "jurassic"
+  const isPoison = slug === "poison_apples"
   const [storm, setStorm] = useState(false)
   const isNes = isCampKiller || isBurnedDreams || isHero // the 8-bit game pages
   const [heroPowered, setHeroPowered] = useState(false)
@@ -290,6 +292,9 @@ export default function ShoePage() {
 
       {/* JURASSIC: a stormy night, rain and lightning */}
       {isJurassic && <JurassicStorm image={shoe.images[0]} heavy={storm} />}
+
+      {/* POISON APPLES: a heap of apples fills the page */}
+      {isPoison && <PoisonBackdrop />}
 
       {/* WIND WALKER BACKGROUND */}
       {isWindWalker && (
@@ -510,17 +515,19 @@ export default function ShoePage() {
             x={x}
             y={y}
             fullscreen={isLabullbu}   // ✅ only Labullbu is fullscreen
-            aspect={isBatman || isHoverboard ? "1264 / 848" : isBesties || isNes ? "1536 / 1024" : isAstromech ? "6000 / 3376" : isJurassic ? "1999 / 3000" : undefined}   // frame matches the photo so its edges can fade
+            aspect={isBatman || isHoverboard ? "1264 / 848" : isBesties || isNes ? "1536 / 1024" : isAstromech ? "6000 / 3376" : isJurassic ? "19 / 10" : isPoison ? "1376 / 768" : undefined}   // frame matches the photo so its edges can fade
             scale={isBatman || isBesties ? 1.15 : undefined}
-            width={isNes ? "min(98vw, calc(98vh * 1.5))" : isAstromech ? "min(98vw, calc(94vh * 6000 / 3376))" : isJurassic ? "min(92vw, calc(92vh * 1999 / 3000))" : undefined}   // as big as the screen allows
+            width={isNes ? "min(98vw, calc(98vh * 1.5))" : isAstromech ? "min(98vw, calc(94vh * 6000 / 3376))" : isJurassic ? "min(92vw, calc(80vh * 1.9))" : isPoison ? "min(96vw, calc(90vh * 1376 / 768))" : undefined}   // as big as the screen allows
             imageClassName={isWindWalker ? styles.shoeFeather : undefined}
-            imageStyle={isBatman ? BATMAN_FADE : isBesties || isNes || isAstromech || isJurassic ? BESTIES_FADE : isHoverboard && riding ? { opacity: 0 } : undefined}
+            imageStyle={isJurassic || isPoison ? { opacity: 0 } : isBatman ? BATMAN_FADE : isBesties || isNes || isAstromech ? BESTIES_FADE : isHoverboard && riding ? { opacity: 0 } : undefined}
           >
             {isHoverboard && <HoverboardRide riding={riding} />}
             {isCampKiller && <CampKillerFX />}
             {isBurnedDreams && <BurnedDreamsFX image={shoe.images[0]} fade={BESTIES_FADE} />}
             {isAstromech && <AstromechFX />}
-            {isJurassic && <JurassicFX image={shoe.images[0]} onStorm={setStorm} />}
+            {/* Jurassic rebuilds the photo as a car scene, so ShoeStage's copy is hidden */}
+            {isJurassic && <JurassicFX onStorm={setStorm} />}
+            {isPoison && <PoisonApplesFX />}
             {isHero && <HeroFX final="/shoes/hero/herofinal.png" fade={BESTIES_FADE} onPowered={setHeroPowered} />}
 
             {isWindWalker && (
@@ -616,7 +623,7 @@ export default function ShoePage() {
         className={`absolute top-10 left-10 z-40 ${
           isBulldokai
             ? "text-white"
-            : isLabullbu || isBatman || isNes || isJurassic || (isHoverboard && riding)
+            : isLabullbu || isBatman || isNes || isJurassic || isPoison || (isHoverboard && riding)
             ? "text-white drop-shadow-md"
             : "text-black"
         }`}
