@@ -931,7 +931,7 @@ export default function PoisonApplesFX() {
           {caption ? (
             <motion.p
               key={caption.key}
-              className={`${creepy.className} px-[2cqw] text-center tracking-wide text-[#b6ff5c] [text-shadow:0_0_1cqw_rgba(120,255,30,0.8),0_0.2cqw_0.3cqw_#000] ${caption.big ? "text-[3.4cqw]" : "text-[2cqw]"}`}
+              className={`${creepy.className} px-[2cqw] text-center tracking-wide text-[#b6ff5c] [text-shadow:0_0_1cqw_rgba(120,255,30,0.8),0_0.2cqw_0.3cqw_#000] ${caption.big ? "text-[max(3.4cqw,20px)]" : "text-[max(2cqw,14px)]"}`}
               initial={{ opacity: 0, y: "0.8cqw", filter: "blur(4px)" }}
               animate={{ opacity: 1, y: "0cqw", filter: "blur(0px)" }}
               exit={{ opacity: 0, y: "-0.6cqw", filter: "blur(4px)" }}
@@ -942,12 +942,14 @@ export default function PoisonApplesFX() {
           ) : (
             <motion.p
               key="hint"
-              className="rounded-full bg-black/40 px-[1.4cqw] py-[0.5cqw] text-[0.95cqw] font-semibold uppercase tracking-[0.25em] text-white/85 backdrop-blur"
+              className="rounded-full bg-black/40 px-[max(1.4cqw,10px)] py-[max(0.5cqw,4px)] text-[max(0.95cqw,10px)] font-semibold uppercase tracking-[0.25em] text-white/85 backdrop-blur"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              Click a bottle to add it to the brew ✦
+              {/* "tap" on touch screens */}
+              <span className="[@media(hover:none)]:hidden">Click</span>
+              <span className="hidden [@media(hover:none)]:inline">Tap</span> a bottle to add it to the brew ✦
             </motion.p>
           )}
         </AnimatePresence>

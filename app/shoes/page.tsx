@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useRef, useState, type MouseEvent } from "react"
 import shoeMap from "@/data/shoe-map.json"
 import pendingMap from "@/data/shoe-pending.json"
 import shoes from "@/data/shoes.json"
@@ -127,14 +127,52 @@ function Shelves({ dimUnlinked }: { dimUnlinked: boolean }) {
   )
 }
 
+// every hotspot: the shoes with a page, then the ones still waiting for their photo
+const HOTSPOTS = [
+  ...map.map((item) => ({ ...item, name: names[item.slug] ?? item.slug, href: `/shoes/${item.slug}` })),
+  ...pending.map((item) => ({ ...item, name: "Picture pending", href: "/shoes/pending" })),
+]
+
 export default function ShoeMapPage() {
   // unlinked shoes start greyed out; the switch shows the whole wall in colour
   const [greyOut, setGreyOut] = useState(true)
+  // on touch screens the first tap on a shoe shows its name, the second opens it
+  const [active, setActive] = useState<string | null>(null)
+  // phones scroll the wall sideways: a hint shows while there's more wall off to the side, until the first swipe
+  const scroller = useRef<HTMLDivElement>(null)
+  const [canSwipe, setCanSwipe] = useState(false)
+  const [swiped, setSwiped] = useState(false)
+
+  useEffect(() => {
+    const el = scroller.current
+    if (!el) return
+    const check = () => setCanSwipe(el.scrollWidth > el.clientWidth + 8)
+    const observer = new ResizeObserver(check)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const onShoeClick = (e: MouseEvent, slug: string) => {
+    e.stopPropagation()
+    if (active !== slug && window.matchMedia("(hover: none)").matches) {
+      e.preventDefault()
+      setActive(slug)
+    }
+  }
 
   return (
-    <main className="flex h-screen w-screen flex-col overflow-hidden bg-black">
+    <main className="flex h-dvh w-screen flex-col overflow-hidden bg-black" onClick={() => setActive(null)}>
       {/* top bar: just the grey-out switch (no way back to the home page while the link is shared) */}
-      <div className="flex h-20 shrink-0 items-center justify-end px-6 md:px-10">
+      <div className="flex h-20 shrink-0 items-center justify-end gap-4 px-6 md:px-10 phone:h-14 phone:px-4">
+        {/* on phones: a hint that the wall goes on to the right, gone after the first swipe */}
+        <span
+          className={`mr-auto text-xs font-semibold uppercase tracking-widest text-white/60 transition-opacity duration-500 ${
+            canSwipe && !swiped ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        >
+          Swipe →
+        </span>
         <button
           type="button"
           role="switch"
@@ -157,98 +195,116 @@ export default function ShoeMapPage() {
         </button>
       </div>
 
-      {/* Image area with breathing room on every side */}
-      <div className="flex min-h-0 flex-1 items-center justify-center pb-10">
-        {/* Box matching the image's aspect ratio so hotspots stay locked to the shoes */}
-        <div
-          className="relative @container"
-          style={{
-            width: `min(88vw, calc((100vh - 7.5rem) * ${IMAGE_RATIO}))`,
-            aspectRatio: `${IMAGE_RATIO}`,
-          }}
-        >
-          {/* 🗺️ Shoe Map Background */}
-          <Image
-            src="/landing/shoewall-v2.jpg"
-            alt="Shoe Map"
-            fill
-            priority
-            className="object-contain"
-          />
-
-          {/* grey out the whole wall except the clickable shoes. shoewall-v2-shoes-c.png is a white-on-black
-              cut-out of the shoes, so inside each hotspot only the shoe itself keeps its colour */}
-          <svg
-            className="wall-fade pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-500"
-            style={{ opacity: greyOut ? 1 : 0 }}
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden
+      {/* Image area with breathing room on every side. On phones the wall fills the height instead,
+          so the shoes are big enough to tap, and scrolls sideways */}
+      <div
+        ref={scroller}
+        className="relative flex min-h-0 flex-1 items-center justify-center pb-10 phone:justify-start phone:overflow-x-auto phone:overflow-y-hidden phone:overscroll-x-contain phone:pb-5 phone:pt-3"
+        onScroll={(e) => {
+          if (!swiped && e.currentTarget.scrollLeft > 24) setSwiped(true)
+        }}
+      >
+        {/* on phones: room for the frame of the unit, which sits just outside the wall. The wall is at most
+            34rem tall there, which keeps about five shoes on screen at a time */}
+        <div className="phone:mx-auto phone:h-[min(100%,34rem)] phone:shrink-0 phone:px-6">
+          {/* Box matching the image's aspect ratio so hotspots stay locked to the shoes */}
+          <div
+            className="relative @container phone:h-full phone:w-auto!"
+            style={{
+              width: `min(88vw, calc((100dvh - 7.5rem) * ${IMAGE_RATIO}))`,
+              aspectRatio: `${IMAGE_RATIO}`,
+            }}
           >
-            <filter id="grey-shoes" colorInterpolationFilters="sRGB">
-              <feColorMatrix
-                type="matrix"
-                values="0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0 0 0 1 0"
-              />
-            </filter>
-            <mask id="shoe-shapes">
-              <image href="/masks/shoewall-v2-shoes-c.png" width="100" height="100" preserveAspectRatio="none" />
-            </mask>
-            <mask id="unlinked-shoes">
-              <rect width="100" height="100" fill="white" />
-              <g mask="url(#shoe-shapes)">
-                {[...map, ...pending].map((item) => (
-                  <rect key={item.slug} x={item.x} y={item.y} width={item.w} height={item.h} fill="black" />
-                ))}
-              </g>
-            </mask>
-            <image
-              href="/landing/shoewall-v2.jpg"
-              width="100"
-              height="100"
-              preserveAspectRatio="none"
-              filter="url(#grey-shoes)"
-              mask="url(#unlinked-shoes)"
+            {/* 🗺️ Shoe Map Background */}
+            <Image
+              src="/landing/shoewall-v2.jpg"
+              alt="Shoe Map"
+              fill
+              priority
+              sizes="(max-width: 767px) 2000px, (max-height: 500px) 2000px, 88vw"
+              className="object-contain"
             />
-          </svg>
 
-          <Shelves dimUnlinked={greyOut} />
+            {/* grey out the whole wall except the clickable shoes. shoewall-v2-shoes-c.png is a white-on-black
+                cut-out of the shoes, so inside each hotspot only the shoe itself keeps its colour */}
+            <svg
+              className="wall-fade pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-500"
+              style={{ opacity: greyOut ? 1 : 0 }}
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <filter id="grey-shoes" colorInterpolationFilters="sRGB">
+                <feColorMatrix
+                  type="matrix"
+                  values="0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0.16 0.54 0.05 0 0  0 0 0 1 0"
+                />
+              </filter>
+              <mask id="shoe-shapes">
+                <image href="/masks/shoewall-v2-shoes-c.png" width="100" height="100" preserveAspectRatio="none" />
+              </mask>
+              <mask id="unlinked-shoes">
+                <rect width="100" height="100" fill="white" />
+                <g mask="url(#shoe-shapes)">
+                  {HOTSPOTS.map((item) => (
+                    <rect key={item.slug} x={item.x} y={item.y} width={item.w} height={item.h} fill="black" />
+                  ))}
+                </g>
+              </mask>
+              <image
+                href="/landing/shoewall-v2.jpg"
+                width="100"
+                height="100"
+                preserveAspectRatio="none"
+                filter="url(#grey-shoes)"
+                mask="url(#unlinked-shoes)"
+              />
+            </svg>
 
-          {/* 👟 Shoe Hotspots */}
-          {[
-            ...map.map((item) => ({ ...item, name: names[item.slug] ?? item.slug, href: `/shoes/${item.slug}` })),
-            ...pending.map((item) => ({ ...item, name: "Picture pending", href: "/shoes/pending" })),
-          ].map((item) => {
-            const name = item.name
-            // keep the tag inside the wall for shoes at the left and right edges
-            const tagAlign =
-              item.x + item.w > 90 ? "right-0" : item.x < 8 ? "left-0" : "left-1/2 -translate-x-1/2"
+            <Shelves dimUnlinked={greyOut} />
 
-            return (
-              <Link
-                key={item.slug}
-                href={item.href}
-                aria-label={`Open ${name}`}
-                className="group absolute cursor-pointer outline-none"
-                style={{
-                  left: `${item.x}%`,
-                  top: `${item.y}%`,
-                  width: `${item.w}%`,
-                  height: `${item.h}%`,
-                }}
-              >
-                {/* frame on hover */}
-                <span className="pointer-events-none absolute -inset-[4%] rounded-[0.6cqw] border-[0.12cqw] border-white shadow-[0_0_1.4cqw_rgba(208,156,177,0.9)] opacity-0 scale-95 transition duration-300 group-hover:opacity-100 group-hover:scale-100 group-focus-visible:opacity-100 group-focus-visible:scale-100" />
+            {/* 👟 Shoe Hotspots */}
+            {HOTSPOTS.map((item) => {
+              const name = item.name
+              // keep the tag inside the wall for shoes at the left and right edges
+              const tagAlign =
+                item.x + item.w > 90 ? "right-0" : item.x < 8 ? "left-0" : "left-1/2 -translate-x-1/2"
+              // the top row's tags go under the shoe, so they aren't cut off at the top of the wall
+              const tagSide = item.y < 10 ? "top-full mt-[0.5cqw] -translate-y-[0.4cqw]" : "bottom-full mb-[0.5cqw] translate-y-[0.4cqw]"
 
-                {/* name tag */}
-                <span className={`pointer-events-none absolute bottom-[100%] ${tagAlign} mb-[0.5cqw] translate-y-[0.4cqw] whitespace-nowrap rounded-full bg-white px-[0.8cqw] py-[0.25cqw] text-[0.85cqw] font-semibold uppercase tracking-wider text-black opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100`}>
-                  {name}
-                </span>
-              </Link>
-            )
-          })}
+              return (
+                <Link
+                  key={item.slug}
+                  href={item.href}
+                  aria-label={`Open ${name}`}
+                  data-active={active === item.slug}
+                  onClick={(e) => onShoeClick(e, item.slug)}
+                  className="group absolute cursor-pointer outline-none [-webkit-tap-highlight-color:transparent]"
+                  style={{
+                    left: `${item.x}%`,
+                    top: `${item.y}%`,
+                    width: `${item.w}%`,
+                    height: `${item.h}%`,
+                  }}
+                >
+                  {/* frame on hover (or on the first tap) */}
+                  <span className="pointer-events-none absolute -inset-[4%] rounded-[0.6cqw] border-[max(0.12cqw,1.5px)] border-white shadow-[0_0_1.4cqw_rgba(208,156,177,0.9)] opacity-0 scale-95 transition duration-300 group-hover:opacity-100 group-hover:scale-100 group-focus-visible:opacity-100 group-focus-visible:scale-100 group-data-[active=true]:opacity-100 group-data-[active=true]:scale-100" />
+
+                  {/* name tag; never smaller than readable */}
+                  <span
+                    className={`pointer-events-none absolute z-10 ${tagSide} ${tagAlign} whitespace-nowrap rounded-full bg-white px-[max(0.8cqw,8px)] py-[max(0.25cqw,3px)] text-[max(0.85cqw,11px)] font-semibold uppercase tracking-wider text-black opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 group-data-[active=true]:translate-y-0 group-data-[active=true]:opacity-100`}
+                  >
+                    {name}
+                    {/* on touch screens: tap again to open */}
+                    <span className="hidden group-data-[active=true]:inline"> ›</span>
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
+
     </main>
   )
 }

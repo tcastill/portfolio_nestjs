@@ -365,7 +365,7 @@ export default function ShoePage() {
       {isWindWalker && (
         <button
           onClick={() => setAvatarState(s => !s)}
-          className="absolute top-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 text-xs rounded-full bg-black/80 text-white backdrop-blur"
+          className="absolute top-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 text-xs rounded-full bg-black/80 text-white backdrop-blur phone:top-auto phone:bottom-6"
         >
           {avatarState ? "Exit Avatar State" : "Enter Avatar State"}
         </button>
@@ -376,7 +376,7 @@ export default function ShoePage() {
           onClick={() =>
             wishPhase === "idle" ? setWishPhase("quake") : resetWish()
           }
-          className="absolute top-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 text-xs rounded-full bg-black/80 text-white backdrop-blur"
+          className="absolute top-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 text-xs rounded-full bg-black/80 text-white backdrop-blur phone:top-auto phone:bottom-6"
         >
           {wishPhase === "idle" ? "KAIO-KEN ×4" : "POWER DOWN"}
         </button>
